@@ -1,0 +1,53 @@
+/* шапка */
+header {
+    -webkit-box-shadow: 0px 6px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 6px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 6px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.navigation_on_site {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14pt;
+
+}
+
+.main_logo a {
+    display: block;
+}
+
+.main_logo img {
+    width: 130px;
+}
+
+.main_left {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.navigation_on_site ul {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+}
+
+.navigation_on_site a {
+    color: #000;
+}
+
+.navigation_on_site a:hover {
+    color: #323232;
+}
+
+.register{
+    /* align-items: center; */
+    background: #9a6eff;
+    padding: 10px;
+    border-radius: 5px;
+}
+.register a{
+    color:white;
+}

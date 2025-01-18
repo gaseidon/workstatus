@@ -1,0 +1,49 @@
+footer {
+    -webkit-box-shadow: 0px -6px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px -6px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px -6px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.group_footer {
+    display: flex;
+    padding: 30px 0;
+}
+
+.footer_logo {
+    display: block;
+    width: 120px;
+    padding-bottom: 20px;
+}
+
+.social_media_footer ul {
+    display: flex;
+
+    gap: 15px;
+}
+
+.element_footer li {
+    padding-bottom: 5px;
+}
+
+.social_img {
+    width: 30px;
+    display: block;
+}
+
+.group_footer {
+    display: flex;
+    padding-bottom: 30px;
+
+}
+
+.element_footer {
+    width: 100%;
+}
+
+.element_footer h2 {
+    padding-bottom: 30px;
+}
+
+.rights_reserved {
+    text-align: center;
+}
