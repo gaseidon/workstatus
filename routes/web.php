@@ -7,7 +7,8 @@ use App\Http\Controllers\Freelance\VacancyController;
 use App\Http\Controllers\Freelance\PortfolioController;
 use App\Http\Controllers\Freelance\BlogController;
 use App\Http\Controllers\Freelance\MainController;
-use App\Http\Controllers\Freelance\AuthController;
+use App\Http\Controllers\Freelance\Auth\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,8 @@ Route::get('/freelancers',[FreelancerController::class, 'index'])->name('freelan
 Route::get('/blog',[BlogController::class, 'index'])->name('blog');
 Route::get('/vacancy',[VacancyController::class, 'index'])->name('vacancy');
 Route::get('/portfolio',[PortfolioController::class, 'index'])->name('portfolio');
-Route::get('/register', [AuthController::class, 'registerIndex'])->name('registerIndex');
-Route::get('/login', [AuthController::class, 'loginIndex'])->name('loginIndex');
-Route::post('/login/event', [AuthController::class, 'loginEvent'])->name('loginEvent');
-Route::get('/register/event', [AuthController::class, 'registerEvent'])->name('registerEvent');
+// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+require_once 'groups/auth.php';
+
+?>
+
