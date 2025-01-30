@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Freelance\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,26 +17,51 @@ class LoginController extends Controller
 
     // Обработка входа
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'signin' => 'required|string',
+        'password' => 'required|string',
+    ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('home'); // Редирект на главную страницу
-        }
+    // Определяем тип авторизации (email или username)
+    $fieldType = filter_var($request->signin, FILTER_VALIDATE_EMAIL)
+        ? 'email'
+        : 'username'; // Убедитесь, что ваше поле в БД называется 'username'
 
-        return back()->withErrors(['email' => 'Неверные учетные данные.'])->withInput();
+    // Проверяем существование пользователя
+    $userExists = User::where($fieldType, $request->signin)->exists();
+
+    if (!$userExists) {
+        $errorMessage = $fieldType === 'email'
+            ? 'Пользователь с таким email не найден'
+            : 'Пользователь с таким логином не найден';
+
+        return back()
+            ->withErrors(['signin' => $errorMessage])
+            ->withInput();
     }
+
+    // Пытаемся авторизовать пользователя
+    $credentials = [
+        $fieldType => $request->signin,
+        'password' => $request->password,
+    ];
+
+    if (Auth::attempt($credentials)) {
+        return redirect()->route('main');
+    }
+
+    return back()
+        ->withErrors(['password' => 'Неверный пароль'])
+        ->withInput();
+}
 
     public function logout(Request $request)
     {
-        Auth::logout(); // Выход из системы
+        Auth::logout();
 
-        $request->session()->invalidate(); // Очистка сессии
-        $request->session()->regenerateToken(); // Регенерация CSRF-токена
-
-        return redirect()->route('main'); // Перенаправление на главную страницу
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('main');
     }
 }
