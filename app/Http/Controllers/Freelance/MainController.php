@@ -7,6 +7,7 @@ class MainController extends BaseController
 {
     public function index()
     {
+
         return view('main.main');
     }
 }

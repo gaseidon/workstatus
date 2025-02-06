@@ -1,60 +1,43 @@
 <?php
 
 namespace App\Http\Controllers\Freelance\Auth;
+
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreLoginRequest;
 use App\Http\Controllers\Freelance\BaseController;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
-    // Показ формы для входа
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Обработка входа
-    public function login(Request $request)
-{
-    $request->validate([
-        'signin' => 'required|string',
-        'password' => 'required|string',
-    ]);
 
-    // Определяем тип авторизации (email или username)
-    $fieldType = filter_var($request->signin, FILTER_VALIDATE_EMAIL)
-        ? 'email'
-        : 'username'; // Убедитесь, что ваше поле в БД называется 'username'
+    public function login(StoreLoginRequest $request)
+    {
 
-    // Проверяем существование пользователя
-    $userExists = User::where($fieldType, $request->signin)->exists();
+        $fieldType = filter_var($request->signin, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'login';
 
-    if (!$userExists) {
-        $errorMessage = $fieldType === 'email'
-            ? 'Пользователь с таким email не найден'
-            : 'Пользователь с таким логином не найден';
+        $credentials = [
+            $fieldType => $request->signin,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('main');
+        }
 
         return back()
-            ->withErrors(['signin' => $errorMessage])
+            ->withErrors(['password' => 'Неверный логин или пароль'])
             ->withInput();
     }
-
-    // Пытаемся авторизовать пользователя
-    $credentials = [
-        $fieldType => $request->signin,
-        'password' => $request->password,
-    ];
-
-    if (Auth::attempt($credentials)) {
-        return redirect()->route('main');
-    }
-
-    return back()
-        ->withErrors(['password' => 'Неверный пароль'])
-        ->withInput();
-}
 
     public function logout(Request $request)
     {
