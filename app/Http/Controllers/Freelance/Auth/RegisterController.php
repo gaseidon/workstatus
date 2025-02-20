@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Freelance\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Freelance\BaseController;
-use App\Http\Requests\CheckEmailRequest;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CheckEmailRequest;
+use App\Http\Requests\StoreRegisterRequest;
+use App\Http\Controllers\Freelance\BaseController;
 
 class RegisterController extends BaseController
 {
@@ -30,13 +31,9 @@ class RegisterController extends BaseController
     }
 
     // Регистрация нового пользователя
-    public function register(Request $request)
+    public function register(StoreRegisterRequest $request, User $user)
     {
-        $request->validate([
-            'login' => 'required|string|min:4|max:20|unique:users',
-            'password' => 'required|string|min:8',
-        ]);
-        $user = User::create([
+        $user = $user->create([
             'email' => $request->email,
             'login' => $request->login,
             'password' => bcrypt($request->password),
