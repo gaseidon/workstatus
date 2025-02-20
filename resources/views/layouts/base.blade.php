@@ -12,11 +12,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </head>
 
-<body class="antialiased">
+<body class="min-h-screen flex flex-col">
 
         @include('includes.header')
 
-    <main class="h-dvh">
+    <main class="flex-grow p-4">
 
             @yield('content')
 
