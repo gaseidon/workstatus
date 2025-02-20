@@ -13,7 +13,7 @@ class UserRepository extends CoreRepository
         return Model::class;
     }
 
-    public function userExists($fieldType, $typeSigin){
-        return $this->startConditions()->where($fieldType, $typeSigin)->exists();
+    public function emailExists($email){
+        return $this->startConditions()->where('email', $email)->exists();
     }
 }

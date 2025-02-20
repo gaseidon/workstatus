@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Freelance\BaseController;
 use App\Http\Requests\CheckEmailRequest;
+use App\Repositories\UserRepository;
 
 class RegisterController extends BaseController
 {
@@ -17,9 +18,9 @@ class RegisterController extends BaseController
     }
 
     // Проверка email
-    public function checkEmail(CheckEmailRequest $request)
+    public function checkEmail(CheckEmailRequest $request, UserRepository $userRepository)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = $userRepository->emailExists($request->email);
 
         if ($user) {
             return redirect()->route('login')->with('email', $request->email);
