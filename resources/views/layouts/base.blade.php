@@ -14,16 +14,15 @@
 
 <body class="min-h-screen flex flex-col">
 
-        @include('includes.header')
+    @include('includes.header')
 
-    <main class="flex-grow p-4">
-
+    <main class="flex-grow">
+        <div class="mx-auto max-w-7xl">
             @yield('content')
-
+        </div>
     </main>
 
-        @include('includes.footer')
-    </div>
+    @include('includes.footer')
 </body>
 
 </html>
