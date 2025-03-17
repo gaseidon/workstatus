@@ -16,7 +16,7 @@
 
     @include('includes.header')
 
-    <main class="flex-grow">
+    <main class="flex-grow my-8">
         <div class="mx-auto max-w-7xl">
             @yield('content')
         </div>

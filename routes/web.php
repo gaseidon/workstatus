@@ -7,7 +7,7 @@ use App\Http\Controllers\Freelance\VacancyController;
 use App\Http\Controllers\Freelance\PortfolioController;
 use App\Http\Controllers\Freelance\BlogController;
 use App\Http\Controllers\Freelance\MainController;
-use App\Http\Controllers\Freelance\Auth\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +27,11 @@ Route::get('/freelancers',[FreelancerController::class, 'index'])->name('freelan
 Route::get('/blog',[BlogController::class, 'index'])->name('blog');
 Route::get('/vacancy',[VacancyController::class, 'index'])->name('vacancy');
 Route::get('/portfolio',[PortfolioController::class, 'index'])->name('portfolio');
+Route::resource('profile', 'Freelance\ProfileController');
 // Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 require_once 'groups/auth.php';
+// Маршруты для профилей
+
 
 ?>
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRegisterRequest extends FormRequest
+class StoreProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -24,9 +24,10 @@ class StoreRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|string|min:4|max:20|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8',
+            'full_name' => 'required|string|max:100',
+            'bio' => 'nullable|string|max:1000',
+            'skills' => 'nullable|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

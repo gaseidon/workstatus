@@ -33,11 +33,7 @@ class RegisterController extends BaseController
     // Регистрация нового пользователя
     public function register(StoreRegisterRequest $request, User $user)
     {
-        $user = $user->create([
-            'email' => $request->email,
-            'login' => $request->login,
-            'password' => bcrypt($request->password),
-        ]);
+        $user = $user->create($request->validated());
 
 
         // // Автоматически авторизуем пользователя после регистрации
